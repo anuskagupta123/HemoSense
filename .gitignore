@@ -1,0 +1,48 @@
+# ---------------------
+#  Python Cache Files
+# ---------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ---------------------
+#  Virtual Environment
+# ---------------------
+venv/
+env/
+.venv/
+
+# ---------------------
+#  OS / Editor Files
+# ---------------------
+.DS_Store
+Thumbs.db
+.vscode/
+
+# ---------------------
+#  Flask Instance Folder
+# ---------------------
+instance/
+*.db
+
+# If you want to keep hemosense.db locally but not upload it:
+hemosense.db
+
+# ---------------------
+#  Model Files (optional)
+# Keep your ML model if needed by app
+# ---------------------
+# If you DO want to upload model.pkl, remove the next line:
+# model.pkl
+
+# ---------------------
+#  Logs
+# ---------------------
+*.log
+
+# ---------------------
+#  Backup / Temp Files
+# ---------------------
+*.bak
+*.tmp

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}HemoSense – Smart Anemia Detection{% endblock %}
+
+{% block content %}
+<header class="hero">
+  <nav class="nav">
+    <div class="brand">
+      <div class="logo">Hb</div>
+      <div class="brand-text">
+        <div class="title">HemoSense</div>
+        <div class="sub">Smart Anemia Detection</div>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Removed Login/Register -->
+      <a class="btn ghost" href="{{ url_for('auth') }}">Get Started</a>
+    </div>
+  </nav>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <h1>AI-Powered Anemia Detection</h1>
+      <p>
+        A fast, accurate and user-friendly anemia risk predictor powered by machine learning.
+        Analyze your hemoglobin and blood indices instantly.
+      </p>
+
+      <div class="hero-cta">
+        <a class="btn large primary" href="{{ url_for('auth') }}">Get Started</a>
+      </div>
+
+      <div class="features">
+        <div class="feature">Instant Predictions</div>
+        <div class="feature">Personalized Tips</div>
+        <div class="feature">Secure & Private</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ABOUT SECTION -->
+<section class="about-section animate-fade">
+  <h2>What is HemoSense?</h2>
+  <p class="about-text">
+    HemoSense is an intelligent health assistant designed to evaluate anemia risk using 
+    your blood parameters. Powered by machine learning, it helps you understand your health 
+    easily and accurately.
+  </p>
+
+  <div class="features-grid">
+    <div class="feature-box glass">
+      <h3>🔬 ML-Based Prediction</h3>
+      <p>Powered by a professionally trained ML model on validated medical datasets.</p>
+    </div>
+
+    <div class="feature-box glass">
+      <h3>📊 Smart Dashboard</h3>
+      <p>Track your hemoglobin levels, view analytics, and monitor long-term patterns.</p>
+    </div>
+
+    <div class="feature-box glass">
+      <h3>💡 Personalized Tips</h3>
+      <p>Receive lifestyle and dietary guidance based on your anemia status.</p>
+    </div>
+
+    <div class="feature-box glass">
+      <h3>🔐 Secure & Private</h3>
+      <p>Your health data remains protected and accessible only to you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section animate-fade">
+  <h2>How It Works</h2>
+
+  <div class="how-grid">
+    <div class="how-card glass">
+      <span class="how-number">1</span>
+      <h3>Enter Health Parameters</h3>
+      <p>Provide hemoglobin and optional RBC indices for more accuracy.</p>
+    </div>
+
+    <div class="how-card glass">
+      <span class="how-number">2</span>
+      <h3>AI Model Analyzes</h3>
+      <p>The ML model evaluates your values and calculates anemia risk.</p>
+    </div>
+
+    <div class="how-card glass">
+      <span class="how-number">3</span>
+      <h3>Get Results & Tips</h3>
+      <p>Instant result with personalized recommendations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ANEMIA MATTERS -->
+<section class="why-section animate-fade">
+  <h2>Why Anemia Detection Matters</h2>
+  <p class="why-text">
+    Anemia affects over <strong>1.6 billion people</strong> worldwide. Early detection helps 
+    prevent fatigue, cognitive decline, and long-term health risks.
+  </p>
+
+  <div class="why-cards">
+    <div class="why-box glass">✔ Improve daily energy levels</div>
+    <div class="why-box glass">✔ Prevent severe medical complications</div>
+    <div class="why-box glass">✔ Boost immunity and well-being</div>
+  </div>
+</section>
+
+{% endblock %}

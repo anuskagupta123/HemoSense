@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}My Profile – HemoSense{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar glass">
+    <div class="side-brand">
+      <div class="logo small-logo">Hb</div>
+      <h3>HemoSense</h3>
+      <p class="muted">AI Health Assistant</p>
+    </div>
+
+    <ul class="side-menu">
+      <li><a href="{{ url_for('dashboard') }}">🏠 Dashboard</a></li>
+      <li><a href="{{ url_for('predict') }}">🔍 New Prediction</a></li>
+      <li><a href="{{ url_for('profile') }}" class="active">👤 Profile</a></li>
+      <li><a href="{{ url_for('change_password') }}">🔑 Change Password</a></li>
+      <li><a href="{{ url_for('logout') }}" class="logout">🚪 Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="dash-main">
+
+    <!-- Profile Banner -->
+    <div class="profile-banner"></div>
+
+    <!-- Profile Card -->
+    <div class="profile-container glass animate-scale">
+
+      <div class="profile-avatar">
+        {{ user.name[0] }}
+      </div>
+
+      <h2 class="profile-name">{{ user.name }}</h2>
+      <p class="profile-email">{{ user.email }}</p>
+
+      <div class="profile-stats">
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-value">{{ total_predictions }}</div>
+          <div class="stat-label">Total Predictions</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-value">{{ user.id }}</div>
+          <div class="stat-label">User ID</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🧪</div>
+          <div class="stat-value">
+            {% if last_result %}{{ last_result }}{% else %}—{% endif %}
+          </div>
+          <div class="stat-label">Last Result</div>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <a href="{{ url_for('dashboard') }}" class="btn ghost">← Back to Dashboard</a>
+        <a href="{{ url_for('change_password') }}" class="btn primary">Change Password</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+{% endblock %}

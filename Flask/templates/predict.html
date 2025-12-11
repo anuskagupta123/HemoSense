@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Predict – HemoSense{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar glass">
+    <div class="side-brand">
+      <div class="logo small-logo">Hb</div>
+      <h3>HemoSense</h3>
+      <p class="muted">AI Health Assistant</p>
+    </div>
+
+    <ul class="side-menu">
+      <li><a href="{{ url_for('dashboard') }}">🏠 Dashboard</a></li>
+      <li><a href="{{ url_for('predict') }}" class="active">🔍 New Prediction</a></li>
+      <li><a href="{{ url_for('profile') }}">👤 Profile</a></li>
+      <li><a href="{{ url_for('change_password') }}">🔑 Change Password</a></li>
+      <li><a href="{{ url_for('logout') }}" class="logout">🚪 Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="dash-main">
+
+    <div class="welcome-box glass animate-fade">
+      <h2>New Anemia Prediction</h2>
+      <p>Enter your blood parameters to generate AI-based prediction.</p>
+    </div>
+
+    <!-- GRID -->
+    <div class="prediction-grid">
+
+      <!-- LEFT FORM -->
+      <div class="predict-card glass animate-slide">
+        <h3>Enter Your Details</h3>
+
+        <form method="POST" action="{{ url_for('predict') }}">
+
+          <label>Age</label>
+          <input type="number" name="age" required value="{{ form_data.get('age','') }}">
+
+          <label>Gender</label>
+          <select name="gender" required>
+            <option value="">Select</option>
+            <option value="female" {% if form_data.get('gender')=='female' %}selected{% endif %}>Female</option>
+            <option value="male" {% if form_data.get('gender')=='male' %}selected{% endif %}>Male</option>
+            <option value="other" {% if form_data.get('gender')=='other' %}selected{% endif %}>Other</option>
+          </select>
+
+          <label>Hemoglobin (Hb)</label>
+          <input type="number" step="0.1" name="hb" required value="{{ form_data.get('hb','') }}">
+
+          <label>MCV</label>
+          <input type="number" step="0.1" name="mcv" value="{{ form_data.get('mcv','') }}">
+
+          <label>MCH</label>
+          <input type="number" step="0.1" name="mch" value="{{ form_data.get('mch','') }}">
+
+          <label>MCHC</label>
+          <input type="number" step="0.1" name="mchc" value="{{ form_data.get('mchc','') }}">
+
+          <button class="btn primary full">Predict</button>
+        </form>
+      </div>
+
+      <!-- RIGHT SIDE INFO PANEL -->
+      <div class="info-card glass animate-scale">
+
+        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" 
+             class="side-illustration">
+
+        <h3>How Prediction Works</h3>
+        <p class="muted">
+          Your blood values are processed using a trained machine learning model to assess anemia risk.
+        </p>
+
+        <ul class="bullet-list">
+          <li>✔ AI-powered hemoglobin assessment</li>
+          <li>✔ Confidence score included</li>
+          <li>✔ Personalized health recommendations</li>
+          <li>✔ Medical-grade dataset training</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Model Accuracy:</strong> 92.4% <br>
+          <strong>Last Updated:</strong> 2025
+        </div>
+
+        <hr style="margin:18px 0; opacity:0.2;">
+
+        <h3>Prediction Result</h3>
+
+        {% if result_category %}
+          <div class="result-box {% if result_category == 'Normal' %}normal{% else %}anemia{% endif %}">
+            {{ result_category }}
+          </div>
+
+          {% if confidence %}
+          <p><strong>Confidence:</strong> {{ confidence }}%</p>
+          {% endif %}
+
+          <h4>Tips</h4>
+          <ul class="tips">
+            {% for t in tips %}
+              <li>{{ t }}</li>
+            {% endfor %}
+          </ul>
+
+        {% else %}
+          <p class="muted">Fill the form to see your AI prediction.</p>
+        {% endif %}
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+{% endblock %}
