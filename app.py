@@ -1,6 +1,8 @@
 # app.py
 import os
 import pickle
+import joblib
+import numpy.random._pickle as np_pickle
 from flask_mail import Mail, Message
 
 from datetime import timedelta
@@ -25,13 +27,34 @@ db.init_app(app)
 app.permanent_session_lifetime = timedelta(minutes=60)
 
 # load model
-MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
-if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"Model file not found at {MODEL_PATH}. Place your model.pkl here.")
+MODEL_CANDIDATES = [
+    os.path.join(BASE_DIR, "model.pkl"),
+    os.path.join(BASE_DIR, "trained_model.pkl"),
+]
 
-with open(MODEL_PATH, "rb") as f:
-    ml_model = pickle.load(f)
-    print("✅ Loaded model.pkl!")
+MODEL_PATH = next((p for p in MODEL_CANDIDATES if os.path.exists(p)), None)
+if not MODEL_PATH:
+    raise FileNotFoundError(
+        f"Model file not found. Expected one of: {', '.join(MODEL_CANDIDATES)}"
+    )
+
+try:
+    # Compatibility for legacy pickles that store a BitGenerator class object.
+    _orig_bitgen_ctor = np_pickle.__bit_generator_ctor
+
+    def _patched_bitgen_ctor(bit_generator_name='MT19937'):
+        if isinstance(bit_generator_name, type):
+            bit_generator_name = bit_generator_name.__name__
+        return _orig_bitgen_ctor(bit_generator_name)
+
+    np_pickle.__bit_generator_ctor = _patched_bitgen_ctor
+
+    with open(MODEL_PATH, "rb") as f:
+        ml_model = pickle.load(f)
+except Exception:
+    ml_model = joblib.load(MODEL_PATH)
+
+print(f"✅ Loaded model from {os.path.basename(MODEL_PATH)}")
 
 # HOME
 @app.route("/")
@@ -241,4 +264,8 @@ with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        debug=os.environ.get("FLASK_DEBUG", "1") == "1",
+    )
