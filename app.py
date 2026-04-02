@@ -19,7 +19,13 @@ app = Flask(
     static_folder=os.path.join(BASE_DIR, "Flask", "static")
 )
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(BASE_DIR, "hemosense.db")
+database_url = os.environ.get("DATABASE_URL")
+if database_url:
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+else:
+    database_url = "sqlite:///" + os.path.join(BASE_DIR, "hemosense.db")
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = os.environ.get("HEMO_SECRET", "change_this_secret_please")
 
