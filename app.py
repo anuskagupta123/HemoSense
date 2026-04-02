@@ -3,13 +3,11 @@ import os
 import pickle
 import joblib
 import numpy.random._pickle as np_pickle
-from flask_mail import Mail, Message
 
 from datetime import timedelta
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from models import db, User, Prediction
 from ml_utils import prepare_features, get_tips
-import numpy as np
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
