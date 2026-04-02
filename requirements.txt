@@ -2,7 +2,7 @@ Flask==2.3.2
 Flask-SQLAlchemy==3.0.3
 joblib==1.5.0
 numpy==2.2.4
-gunicorn==20.1.0
+gunicorn==23.0.0
 setuptools==82.0.1
 psycopg2-binary==2.9.10
 scikit-learn==1.6.1
